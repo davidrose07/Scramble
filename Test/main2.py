@@ -1,4 +1,4 @@
-from controller import *
+from controller2 import *
   
 def main():
     application = QApplication([])

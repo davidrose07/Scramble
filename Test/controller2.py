@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from view import *
+from view2 import *
 from PyQt5.QtWidgets import *
 import pymsgbox, time
 import string_utils,pygame

@@ -5,6 +5,8 @@ import pymsgbox, time, sys, pymsgbox, string_utils,pygame
 from gtts import gTTS
 from os.path import exists
 from pygame.locals import *
+import enchant
+
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
@@ -91,7 +93,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.btn_validate.clicked.connect(lambda: self.validate(Controller.correct_word))
         #self.actionAdd_Words.triggered.connect(self.add_words)
         #self.actionRemove_Words.triggered.connect(self.remove_word)
-        self.actionExit.triggered.connect(self.exit_program)
+        #self.actionExit.triggered.connect(self.exit_program)
         self.edit_words = EditWordsWindow()
         #self.edit_words.hide()
         self.add_words()
@@ -101,17 +103,20 @@ class Controller(QMainWindow, Ui_MainWindow):
         Function finishes the setup process. Adds words to the list and creates stacked widgets for errors. Calls next word to begin scrammble game.
         :param edit_words: provides instance of pop up window 
         '''   
-        self.show()
-        for word in Controller.temp_list:
-            if word == "":
-                Controller.temp_list.remove(word)
-            else:
-                Controller.spelling_list.append(word)
-        SCRAMBLE(Controller.temp_list)
-        self.create_stacked()
-        Controller.temp_list.clear()
-        self.edit_words.hide()
-        self.next_word()
+        if len(Controller.temp_list) > 0:
+            self.show()
+            for word in Controller.temp_list:
+                if word == "":
+                    Controller.temp_list.remove(word)
+                else:
+                    Controller.spelling_list.append(word)
+            SCRAMBLE(Controller.temp_list)
+            self.create_stacked()
+            Controller.temp_list.clear()
+            self.edit_words.hide()
+            self.next_word()
+        else:
+            pymsgbox.alert("Please enter a word to begin")
         
     def add_words(self) -> None:
         '''
@@ -127,10 +132,14 @@ class Controller(QMainWindow, Ui_MainWindow):
         Function to get new spelling words
         :return: returns spelling word(s)
         """
-        new_word = self.edit_words.lineEdit_addWord.text()
-        Controller.temp_list.append(new_word)
+        d = enchant.Dict("en_US")
+        new_word = self.edit_words.lineEdit_addWord.text().lower()
+        if d.check(new_word):
+            Controller.temp_list.append(new_word)
+        else:
+            pymsgbox.alert("Not a valid word")
         self.edit_words.lineEdit_addWord.setText("")
-            
+        
     def exit_program(self) -> None:
         '''
         Function to end the program. Asks for confirmation
@@ -242,4 +251,3 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.label_scramble.setText(scrambled_word)
         except:
             pass
-    
