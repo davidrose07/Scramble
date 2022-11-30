@@ -38,8 +38,8 @@ class SCRAMBLE:
                 try:                      
                     tts = gTTS(text=word, lang='en')
                     tts.save(f'{word}.mp3')
-                    if exists(f'{word}.mp3') == True:
-                        return
+                    if exists(f'{word}.mp3') == True: # For some reason the code will not perform correctly without this line
+                        pass
                 except Exception as e:
                     pass
    
@@ -91,11 +91,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.btn_speak.clicked.connect(lambda: SCRAMBLE.play_mp3(Controller.correct_word))
         self.btn_validate.clicked.connect(lambda: self.validate(Controller.correct_word))
-        #self.actionAdd_Words.triggered.connect(self.add_words)
-        #self.actionRemove_Words.triggered.connect(self.remove_word)
-        #self.actionExit.triggered.connect(self.exit_program)
         self.edit_words = EditWordsWindow()
-        #self.edit_words.hide()
         self.add_words()
         
     def finish_gui(self) -> None:

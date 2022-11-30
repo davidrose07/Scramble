@@ -4,7 +4,6 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(1124, 858)
-        #MainWindow.resize(1124, 858)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.btn_speak = QtWidgets.QPushButton(self.centralwidget)
@@ -62,15 +61,11 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1124, 26))
         self.menubar.setObjectName("menubar")
         self.menuExit = QtWidgets.QMenu(self.menubar)
-        #self.menuExit.setObjectName("menuExit")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.actionExit = QtWidgets.QAction(MainWindow)
-        #self.actionExit.setObjectName("actionExit")
-        #self.actionExit.setText("Exit")
-        #self.menuExit.addAction(self.actionExit)
         self.menubar.addAction(self.menuExit.menuAction())
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
@@ -83,14 +78,12 @@ class Ui_MainWindow(object):
         self.btn_validate.setText(_translate("MainWindow", "Validate"))
         self.label_1.setText(_translate("MainWindow", "Scrambled Word"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_scramble), _translate("MainWindow", "Word Scramble"))
-        #self.menuExit.setTitle(_translate("MainWindow", "Exit"))
         
 class EditWordsWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setObjectName("PopUpWindow")
         self.setFixedSize(675, 503)
-        #self.resize(675, 503)
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.label_main = QtWidgets.QLabel(self.centralwidget)
